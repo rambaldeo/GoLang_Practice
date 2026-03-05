@@ -1,0 +1,1 @@
+For this folder, I got the code from https://www.twilio.com/en-us/blog/developers/community/generate-passwords-go
