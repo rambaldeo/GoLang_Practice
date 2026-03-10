@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"strings"
 )
 
@@ -20,7 +21,7 @@ func main() {
 		functionchoice = strings.ToLower((functionchoice))
 		//make sure that the user enters a valid function choice
 		if functionchoice != "add" && functionchoice != "subtract" && functionchoice != "multiply" && functionchoice != "divide" {
-			fmt.Println("Invalid function choice. Please enter add, subtract, multiply, or divide.")
+			fmt.Println("Invalid function choice. Please enter add, subtract, multiply, divide, or power.")
 			continue
 		}
 		fmt.Println("Enter the first number:")
@@ -54,5 +55,10 @@ func calculate(choice string, num1 int, num2 int) {
 		} else {
 			fmt.Println("Error: Division by zero is not allowed.")
 		}
+	case "power":
+		var num1float float64 = float64(num1)
+		var num2float float64 = float64(num2)
+		result = int(math.Pow(num1float, num2float))
+		fmt.Printf("The result of %d to the power of %d is: %d\n", num1, num2, result)
 	}
 }
