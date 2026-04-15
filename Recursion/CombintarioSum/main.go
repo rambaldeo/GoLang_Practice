@@ -38,3 +38,64 @@ Hints
   Use an index to avoid going backwards and creating duplicates
 
 */
+
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	fmt.Println("This is a problem to find all unique combinations of integers that add up to a number")
+	var candiates, targetNumber int
+	fmt.Println("Enter the number of candiates to be in the array")
+	fmt.Scan(&candiates)
+	fmt.Println("Please enter the canidates now")
+	array := make([]int, candiates)
+	for i := 0; i < candiates; i++ {
+		fmt.Printf("%d:", i+1)
+		fmt.Scanln(&array[i])
+	}
+	fmt.Println("Please enter the target number")
+	fmt.Scan(&targetNumber)
+	Combos := getcombo(array, targetNumber)
+	fmt.Print(Combos)
+}
+
+func getcombo(array []int, targetNumber int) [][]int {
+	result := [][]int{}
+	var helper func([]int, int, int)
+
+	helper = func(current []int, index int, currentSum int) {
+		//base case
+		//if the sum is equal to the target number
+		if currentSum == targetNumber {
+			temp := make([]int, len(current))
+			copy(temp, current)
+			result = append(result, temp)
+			return
+		}
+		if currentSum > targetNumber || index >= len(array) {
+			return
+		}
+		// ✅ Choice 1: PICK the number
+		current = append(current, array[index])
+		helper(current, index, currentSum+array[index])
+		// 🔙 Backtrack (undo the choice)
+		current = current[:len(current)-1]
+
+		// ❌ Choice 2: SKIP the number
+		helper(current, index+1, currentSum)
+	}
+
+	helper(array, 0, 0)
+	return result
+}
+
+func sumOfArray(tempArray []int, targetNum int) int {
+	result := 0
+	for i := 0; i < len(tempArray); i++ {
+		result += tempArray[i]
+	}
+	return result
+}
